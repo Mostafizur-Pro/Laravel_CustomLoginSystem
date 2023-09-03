@@ -21,6 +21,9 @@
     <body class="antialiased">
         <h1 class="text-red-400 font-bold">
             <a href="{{url('/login')}}">Login</a>
+            @if (Auth::check())
+    <p>Welcome, {{ Auth::user()->name }}!</p>
+@endif
             
         </h1>
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+// use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+
 
 class customLoginController extends Controller
 {
@@ -38,19 +41,65 @@ class customLoginController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string|min:4',
         ]);
+
+      
     
         $user = User::where('email', $request->input('email'))->first();
 
         if ($user) {
             // Authentication passed
-            return redirect('/')->with('success', 'Login successful!');
+            if(Hash::check($request->password, $user->password)){
+                $request->session()->put('loginId', $user->id);
+                return redirect('/dashboard')->with('success', 'Login successful!');
+            }else{
+                return back()->with('fail', 'Login failed. Please check your password.');
+
+            }
 
             // return redirect('/'); // Redirect to a dashboard or any desired page
         } else {
             // Authentication failed
-            return back()->with('error', 'Login failed. Please check your credentials.');
+            return back()->with('fail', 'Login failed. Please check your user.');
         }
     }
+    // use Illuminate\Support\Facades\Session;
+
+    public function dashboard(){
+        $data = null; // Initialize the data variable
+    
+        if (Session::has('loginId')) {
+            $userId = Session::get('loginId');
+            $data = User::find($userId); // Retrieve user data by the loginId from the session
+        }
+    
+        return view('dashboard/dashboard', compact('data'));
+    }
+    
 }
 
 
+// publicfunctionloginUser(Request$request)
+//     {
+//         $this->validate($request, [
+//             'email' =>'required|string|email',
+//             'password' =>'required|string|min:3',
+//         ]);
+
+//         $user = User::where('email', $request->input('email'))->first();
+
+//         if ($user) {
+//             if (Hash::check($request->input('password'), $user->password)) {
+//                 $request->session()->put('loginId', $user->id);
+//                 returnredirect('dashboard');
+//             } else {
+//                 returnback()->with('fail', 'Password does not match');
+//             }
+//         } else {
+//             returnback()->with('fail', 'This email is not registered');
+//         }
+//     }
+
+//     publicfunctiondashboard()
+//     {
+//         return'Welcome to your dashboard';
+//     }
