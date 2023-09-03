@@ -21,20 +21,21 @@
     </div>
     <form action="{{ route('login-user') }}" method="post" class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
+    <div class="alert alert-danger bg-orange-200 ">
+        <h1>
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                <p>{{ $error }}</p>
             @endforeach
-        </ul>
+        </h1>
     </div>
 @endif
   
     @csrf
       <div class="card-body">
       <input type="email" name="email" placeholder="email" class="input input-bordered" />
-        <input type="password" name="password" placeholder="password" class="input input-bordered" />
-       
+      <span class="text-red-400 ">@error('email') {{$message}} @endError</span>  
+      <input type="password" name="password" placeholder="password" class="input input-bordered" />
+        <span class="text-red-400 ">@error('password') {{$message}} @endError</span>
          
           <label class="label">
             <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
