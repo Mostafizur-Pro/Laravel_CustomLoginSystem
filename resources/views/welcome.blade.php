@@ -9,6 +9,9 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+<!-- Tailwind CSS & DaisyUI -->
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@3.6.4/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
 
         <!-- Styles -->
         <style>
@@ -16,6 +19,10 @@
         </style>
     </head>
     <body class="antialiased">
+        <h1 class="text-red-400 font-bold">
+            <a href="{{url('/login')}}">Login</a>
+            
+        </h1>
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">

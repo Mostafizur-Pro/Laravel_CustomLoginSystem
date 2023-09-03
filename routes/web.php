@@ -22,5 +22,6 @@ Route::get('/', function () {
 Route::get('/login', [customLoginController::class, 'login']);
 Route::get('/register', [customLoginController::class, 'register']);
 Route::post('/register-user', [customLoginController::class, 'registerUser'])->name('register-user');
+Route::post('/login-user',[customLoginController::class, 'loginUser'])->name('login-user');
 
 
