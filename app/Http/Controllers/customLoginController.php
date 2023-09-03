@@ -74,32 +74,13 @@ class customLoginController extends Controller
     
         return view('dashboard/dashboard', compact('data'));
     }
+
+    public function logout(){
+        if (Session::has('loginId')) {
+            Session::pull('loginId');
+            return redirect('login');
+        }
+    }
     
 }
 
-
-// publicfunctionloginUser(Request$request)
-//     {
-//         $this->validate($request, [
-//             'email' =>'required|string|email',
-//             'password' =>'required|string|min:3',
-//         ]);
-
-//         $user = User::where('email', $request->input('email'))->first();
-
-//         if ($user) {
-//             if (Hash::check($request->input('password'), $user->password)) {
-//                 $request->session()->put('loginId', $user->id);
-//                 returnredirect('dashboard');
-//             } else {
-//                 returnback()->with('fail', 'Password does not match');
-//             }
-//         } else {
-//             returnback()->with('fail', 'This email is not registered');
-//         }
-//     }
-
-//     publicfunctiondashboard()
-//     {
-//         return'Welcome to your dashboard';
-//     }

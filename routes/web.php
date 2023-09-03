@@ -25,5 +25,6 @@ Route::get('/dashboard', [customLoginController::class, 'dashboard']);
 Route::get('/register', [customLoginController::class, 'register']);
 Route::post('/register-user', [customLoginController::class, 'registerUser'])->name('register-user');
 Route::post('/login-user',[customLoginController::class, 'loginUser'])->name('login-user');
+Route::get('/logout', [customLoginController::class, "logout"]);
 
 
